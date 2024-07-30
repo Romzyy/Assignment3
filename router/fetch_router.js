@@ -1,9 +1,12 @@
 // fetch_router.js
 const express = require("express");
 const router = express.Router();
+const Image = require("../models/image");
+const Image = require("../models/file");
+
 const path = require("path");
 const { getRandomFiles, getAllFiles } = require("../util/fileUtils");
-const {readFileAsBase64} = require("../util/base64Util")
+const { readFileAsBase64 } = require("../util/base64Util");
 const { paginate } = require("../util/paginationUtil"); // Import the pagination utility function
 
 // Fetch file as base64
