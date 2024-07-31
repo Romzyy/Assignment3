@@ -3,7 +3,7 @@ const PORT = process.env.PORT || 3000;
 const express = require("express");
 const app = express();
 const path = require("path");
-const upload_router = require("./router/upload_router");
+const upload = require("./router/upload_router");
 const fetch_router = require("./router/fetch_router");
 
 const mongoose = require("mongoose");
@@ -20,7 +20,7 @@ db.on("error", (err) => {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
-app.use("/upload", upload_router);
+app.use("/upload", upload);
 app.use("/fetch", fetch_router);
 
 // Serve index.html
@@ -37,16 +37,16 @@ app.get("/gallery-pagination", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "gallery-pagination.html"));
 });
 
-// Handle 404
-app.use((req, res) => {
-  res.status(404).send("Route does not exist on our server");
-});
-
 app.get("/fetch-random", (req, res) => {
   res.sendFile(path.join(__dirname, "/views/fetch-random.html"));
 });
 app.get("/fetch-multiple-random", (req, res) => {
   res.sendFile(path.join(__dirname, "/views/fetch-multiple-random.html"));
+});
+
+// Handle 404
+app.use((req, res) => {
+  res.status(404).send("Route does not exist on our server");
 });
 
 // Start the server
